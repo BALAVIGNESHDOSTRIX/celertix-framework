@@ -89,7 +89,7 @@ salary = Float(string="Salary")
 ## create method
 ```
 vals = {'name': 'balavignesh', 'age': 24, 'department': 'IT', 'blood_group': 'A+'}
-userobj = await clx.config.env['res.user'].create(vals=vals)
+userobj = await clxuniv.env['res.user'].create(vals=vals)
 
 # Access the Attribute with values
 
@@ -106,7 +106,7 @@ IT
 ## browse method
 ```
 search_ids = [1,8,10]
-userobj = await clx.config.env['res.user'].browse(search_ids)
+userobj = await clxuniv.env['res.user'].browse(search_ids)
 
 userobj # contains list of objects
 
@@ -124,7 +124,7 @@ name = 'bala'
 age = 20
 
 # SELECT age, blood_group, department, name, id FROM res_user WHERE  name = 'bala' AND age = 90;
-userobj_l = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+userobj_l = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
 
 # Access each record with objects
 for user in userobj_l:
@@ -147,7 +147,7 @@ for user in userobj_l:
 name = 'bala'
 age = 20
 
-userobj = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj:
           await user.write({'name': 'vignesh', 'age': 20})
 ```
@@ -157,7 +157,7 @@ userobj = await clx.config.env['res.user'].search([('name', '=',name), '&', ('ag
 name = 'bala'
 age = 20
 
-userobj = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj:
           await user.unlink()
 ```
@@ -206,7 +206,7 @@ resusersaction = ClxBlr('res_users', url_prefix='/users')
 @resusersaction.route('/user/create', methods=['POST'])
 async def action_create_user(request):
      vals = {'name': request.form.get('name'), 'age': int(request.form.get('age'))}
-     userobj = await clx.config.env['res.user'].create(vals=vals)
+     userobj = await clxuniv.env['res.user'].create(vals=vals)
      print(userobj._id, userobj.name, userobj.age)
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
@@ -220,7 +220,7 @@ async def action_create_user(request):
 async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
-     userobj_l = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+     userobj_l = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj_l:
           print(user._id)
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
@@ -232,7 +232,7 @@ async def action_search_user(request):
 async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
-     userobj = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+     userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj:
           await user.write({'name': 'vignesh', 'age': 20})
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
@@ -245,7 +245,7 @@ async def action_search_user(request):
 async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
-     userobj = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+     userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj:
           await user.unlink()
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
