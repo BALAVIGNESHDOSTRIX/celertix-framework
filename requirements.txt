@@ -111,7 +111,7 @@ nbformat==5.0.7
 nest-asyncio==1.4.1
 netifaces==0.10.4
 netsuitesdk==1.12.0
-notebook==6.1.4
+notebook==6.1.5
 notifiers==1.2.1
 ntlm-auth==1.5.0
 numpy==1.18.5
