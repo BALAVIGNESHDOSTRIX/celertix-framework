@@ -8,6 +8,6 @@ ClxBlr = Blueprint
 ClxRsp = response
 
 # Route Registry
-ClxRegistry = sky.blueprint
+ClxRegistry = clx.blueprint
 
 

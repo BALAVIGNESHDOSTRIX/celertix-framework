@@ -1,2 +1,2 @@
-from . import skybug_global
-from . import skybug_tools
+from . import celertix_global
+from . import celertix_tools

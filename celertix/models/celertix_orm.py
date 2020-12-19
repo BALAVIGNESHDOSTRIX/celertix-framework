@@ -4,7 +4,7 @@ from .celertix_sql import *
 from .celertix_sql import CelertixSql as sql 
 from .celertix_fields import *
 from ..tools.celertix_global import clx
-from ..tools.celertix_tools import ClxTools as gtol
+from ..tools.celertix_tools import CelertixTools as gtol
 
 
 class Database:

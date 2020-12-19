@@ -1,1 +1,1 @@
-from . import skybug_module_wildcard
+from . import celertix_module_wildcard
