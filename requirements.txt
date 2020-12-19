@@ -33,7 +33,7 @@ chardet==3.0.4
 Click==7.0
 colorama==0.4.3
 command-not-found==0.3
-cryptography==2.9.2
+cryptography==3.2
 cupshelpers==1.0
 curtsies==0.3.4
 cycler==0.10.0
