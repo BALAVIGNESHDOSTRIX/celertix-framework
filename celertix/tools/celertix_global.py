@@ -5,7 +5,7 @@ from sanic import Blueprint,response
 clx = Sanic(__name__)
 Clxauth = Auth(clx)
 ClxBlr = Blueprint
-clxRsp = response
+ClxRsp = response
 
 # Route Registry
 ClxRegistry = sky.blueprint
