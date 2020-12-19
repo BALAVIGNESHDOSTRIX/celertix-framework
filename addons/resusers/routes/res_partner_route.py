@@ -1,4 +1,4 @@
-from celertix.tools.celertix_global import clx, Clxauth, ClxBlr,ClxRsp,ClassRegistry
+from celertix.tools.celertix_global import clx, Clxauth, ClxBlr,ClxRsp,ClxRegistry
 from datetime import datetime, date
 
 

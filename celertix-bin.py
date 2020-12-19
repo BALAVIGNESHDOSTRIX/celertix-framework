@@ -45,4 +45,4 @@ async def register_db(sky, loop):
 if __name__ == "__main__":
     import os
     os.path.dirname(os.path.realpath('celertix-bin.py'))
-    sky.run(host="0.0.0.0", port=8000, debug=True)
+    clx.run(host="0.0.0.0", port=8000, debug=True)
