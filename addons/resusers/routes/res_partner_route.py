@@ -1,4 +1,4 @@
-from celertix.tools.celertix_global import clx, Clxauth, ClxBlr,ClxRsp,ClxRegistry
+from celertix.tools.celertix_global import clx, Clxauth, ClxBlr,ClxRsp,ClxRegistry, clxuniv
 from datetime import datetime, date
 
 
@@ -7,7 +7,7 @@ resusersaction = ClxBlr('res_users', url_prefix='/users')
 @resusersaction.route('/user/create', methods=['POST'])
 async def action_create_user(request):
      vals = {'name': request.form.get('name'), 'age': int(request.form.get('age'))}
-     userobj = await clx.config.env['res.user'].create(vals=vals)
+     userobj = await clxuniv.env['res.user'].create(vals=vals)
      print(userobj._id, userobj.name, userobj.age)
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
@@ -16,7 +16,7 @@ async def action_create_user(request):
 async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
-     userobj_l = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+     userobj_l = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj_l:
           print(user._id)
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
@@ -26,7 +26,7 @@ async def action_search_user(request):
 async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
-     userobj = await clx.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+     userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj:
           await user.write({'name': 'vignesh', 'age': 20})
           break
@@ -36,7 +36,7 @@ async def action_search_user(request):
 async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
-     userobj = await sky.config.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
+     userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
      for user in userobj:
           await user.unlink()
           break
@@ -45,21 +45,21 @@ async def action_search_user(request):
 @resusersaction.route('/user/timestamp', methods=['POST'])
 async def action_timestamp_user(request):
      dt = datetime.now()
-     userobj = await clx.config.env['res.user'].create({'create_dt': dt})
+     userobj = await clxuniv.env['res.user'].create({'create_dt': dt})
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
 
 @resusersaction.route('/user/date', methods=['POST'])
 async def action_date_user(request):
      dt = datetime.strftime(date.today(), '%Y-%m-%d')
-     userobj = await clx.config.env['res.user'].create({'write_dt': dt})
+     userobj = await clxuniv.env['res.user'].create({'write_dt': dt})
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
 
 @resusersaction.route('/user/salary', methods=['POST'])
 async def action_salary_user(request):
      slry = 214.52
-     userobj = await sky.config.env['res.user'].create({'salary': slry})
+     userobj = await clxuniv.env['res.user'].create({'salary': slry})
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
      
 

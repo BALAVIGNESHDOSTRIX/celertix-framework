@@ -10,4 +10,7 @@ ClxRsp = response
 # Route Registry
 ClxRegistry = clx.blueprint
 
+# global env
+clxuniv = clx.config
+
 

@@ -3,7 +3,7 @@ from asyncpg  import create_pool, connect
 from .celertix_sql import *
 from .celertix_sql import CelertixSql as sql 
 from .celertix_fields import *
-from ..tools.celertix_global import clx
+from ..tools.celertix_global import clx, clxuniv
 from ..tools.celertix_tools import CelertixTools as gtol
 
 
@@ -133,7 +133,7 @@ class Model(Database):
         newObj._fld_value_setter(vals=vals)
         fields, values = newObj._fld_value_casting(classmebers=inspect.getmembers(cls))
         sqlQ = sql._insert_sql_(tbname=cls._get_name(), colist=fields, valist=values)
-        res = await clx.config.environ._execute(sqlQ, clx.config.envpool)
+        res = await clxuniv.environ._execute(sqlQ, clxuniv.envpool)
         return await newObj.browse(ids=[int(gtol.id_parseser(res))])
         
     
@@ -145,13 +145,13 @@ class Model(Database):
         for index,fld in enumerate(fields):
             combin_l.append((fld, '=', values[index]))
         query = sql._update_sql(tbname=cls._get_name(), vals=combin_l, ids=self._id)
-        res = await clx.config.environ._execute(query, clx.config.envpool)
+        res = await clxuniv.environ._execute(query, clxuniv.envpool)
         return True
     
     async def unlink(self):
         cls = self.__class__
         query = sql._delete_sql(tbname=cls._get_name(), ids=self._id)
-        await clx.config.environ._execute(query, clx.config.envpool)
+        await clxuniv.environ._execute(query, clxuniv.envpool)
         
 
     async def browse(self, ids=[]):
@@ -163,13 +163,13 @@ class Model(Database):
                 query = self._get_select_where_sql(args=[('id', 'in', tup)])                                      
             else:
                 query = self._get_select_where_sql(args=[('id', '=', tup[0])])
-            res = await clx.config.environ._execute(query, clx.config.envpool)
+            res = await clxuniv.environ._execute(query, clxuniv.envpool)
             return ObjValsMapper(cls, res).tbobj_lx()
             
     async def search(self, args=[], limit=None):
         cls = self.__class__
         query = self._get_select_where_sql(args=args)
-        res = await clx.config.environ._execute(query, clx.config.envpool)
+        res = await clxuniv.environ._execute(query, clxuniv.envpool)
         return ObjValsMapper(cls, res).tbobj_lx()
         
     async def createtb(self):
