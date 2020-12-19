@@ -17,19 +17,17 @@ async def action_search_user(request):
      name = request.args.get('name')
      age = request.args.get('age')
      userobj_l = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
-     for user in userobj_l:
-          print(user._id)
+     print(userobj_l._id)
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
 
 @resusersaction.route('/user/update', methods=['POST'])
 async def action_search_user(request):
-     name = request.args.get('name')
-     age = request.args.get('age')
+     name = request.form.get('name')
+     age = request.form.get('age')
+     print(name, age)
      userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
-     for user in userobj:
-          await user.write({'name': 'vignesh', 'age': 20})
-          break
+     await userobj.write({'name': 'vignesh', 'age': 20})
      return ClxRsp.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
 @resusersaction.route('/user/delete', methods=['POST'])
