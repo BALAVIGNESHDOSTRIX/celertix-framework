@@ -1,4 +1,4 @@
-class CelertixxTools:
+class CelertixTools:
     @classmethod
     def parse_same_key_list(cls, keylist=[]):
         need_l = {}
