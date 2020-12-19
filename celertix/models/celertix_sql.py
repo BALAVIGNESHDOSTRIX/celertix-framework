@@ -1,3 +1,4 @@
+CREATE_TABLE_SQL = "CREATE TABLE {name} ({fields});"
 CONDITIONAL_OPRATORS = {
     '=' : '=',
     '&' : 'AND',

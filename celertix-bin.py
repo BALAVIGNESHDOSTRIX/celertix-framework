@@ -18,6 +18,7 @@ async def create_new_tables(tblist=[]):
         tbclass = clxuniv.env.get(tbl)
         if tbclass._migrate:
             query = await tbclass.createtb()
+            print(query)
             await clxuniv.environ._execute(query, clxuniv.envpool)
             
 async def update_new_columns(tblist=[]):
