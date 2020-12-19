@@ -145,6 +145,7 @@ class Model(Database):
         for index,fld in enumerate(fields):
             combin_l.append((fld, '=', values[index]))
         query = sql._update_sql(tbname=cls._get_name(), vals=combin_l, ids=self._id)
+        print(query)
         res = await clxuniv.environ._execute(query, clxuniv.envpool)
         return True
     
@@ -205,7 +206,7 @@ class Model(Database):
                 val = getattr(self, name)
                 if not isinstance(val, Float):
                     col_l.append(name)
-                    val_l.append(str(val))
+                    val_l.append("'{x}'".format(x=str(val)))
                     
             if isinstance(field, Date):
                 val = getattr(self, name)

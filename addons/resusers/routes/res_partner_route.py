@@ -32,12 +32,10 @@ async def action_search_user(request):
 
 @resusersaction.route('/user/delete', methods=['POST'])
 async def action_search_user(request):
-     name = request.args.get('name')
-     age = request.args.get('age')
+     name = request.form.get('name')
+     age = request.form.get('age')
      userobj = await clxuniv.env['res.user'].search([('name', '=',name), '&', ('age', '=', age)])
-     for user in userobj:
-          await user.unlink()
-          break
+     await userobj.unlink()
      return SkyResponse.json({'msg': 'Success Token','res_code': 2000, 'result': 'good'})
 
 @resusersaction.route('/user/timestamp', methods=['POST'])

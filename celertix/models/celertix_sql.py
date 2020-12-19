@@ -58,7 +58,8 @@ class CelertixSql:
         valsx = ""
         if len(vals) > 1:
             for x in vals:
-                valsx += x[0] + x[1] + str(x[2]) + ","
+                if str(x[2]) != "'None'":
+                    valsx += x[0] + x[1] + str(x[2]) + ","
         return "UPDATE {tb_name} SET {vals} WHERE id = {_id};".format(tb_name=tbname, vals=valsx[:-1], _id=ids)
     
     @classmethod
