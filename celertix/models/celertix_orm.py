@@ -24,22 +24,22 @@ class Database:
         host=self.dbhost, database=self.dbname,
         port=self.dbport)
 
-    async def unregister_db(self, gresenvpool):
-        async with gresenvpool.acquire() as dbcon:
+    async def unregister_db(self):
+        async with clxuniv.environ.acquire() as dbcon:
             await dbcon.close()
             
     @classmethod
     def clspartum(cls):
         return cls()
   
-    async def _execute(self, sqlcommand=None, conpool=None):
-        return [dict(x) for x in await conpool.fetch(sqlcommand) if x]
+    async def _execute(self, sqlcommand=None):
+        return [dict(x) for x in await clxuniv.envpool.fetch(sqlcommand) if x]
 
-    async def tables(self, conpool):
-        return await self._execute(sqlcommand=sql.get_all_tables(), conpool=conpool)
+    async def tables(self):
+        return await self._execute(sqlcommand=sql.get_all_tables())
     
-    async def get_all_cols(self, conpool, tbname):
-        return await self._execute(sqlcommand=sql.select_all_columns(tbname=tbname), conpool=conpool)
+    async def get_all_cols(self, tbname):
+        return await self._execute(sqlcommand=sql.select_all_columns(tbname=tbname))
     
 
 class Model(Database):
@@ -133,7 +133,7 @@ class Model(Database):
         newObj._fld_value_setter(vals=vals)
         fields, values = newObj._fld_value_casting(classmebers=inspect.getmembers(cls))
         sqlQ = sql._insert_sql_(tbname=cls._get_name(), colist=fields, valist=values)
-        res = await clxuniv.environ._execute(sqlQ, clxuniv.envpool)
+        res = await clxuniv.environ._execute(sqlQ)
         return await newObj.browse(ids=[int(gtol.id_parseser(res))])
         
     
@@ -145,14 +145,13 @@ class Model(Database):
         for index,fld in enumerate(fields):
             combin_l.append((fld, '=', values[index]))
         query = sql._update_sql(tbname=cls._get_name(), vals=combin_l, ids=self._id)
-        print(query)
-        res = await clxuniv.environ._execute(query, clxuniv.envpool)
+        res = await clxuniv.environ._execute(query)
         return True
     
     async def unlink(self):
         cls = self.__class__
         query = sql._delete_sql(tbname=cls._get_name(), ids=self._id)
-        await clxuniv.environ._execute(query, clxuniv.envpool)
+        await clxuniv.environ._execute(query)
         
 
     async def browse(self, ids=[]):
@@ -164,13 +163,13 @@ class Model(Database):
                 query = self._get_select_where_sql(args=[('id', 'in', tup)])                                      
             else:
                 query = self._get_select_where_sql(args=[('id', '=', tup[0])])
-            res = await clxuniv.environ._execute(query, clxuniv.envpool)
+            res = await clxuniv.environ._execute(query)
             return ObjValsMapper(cls, res).tbobj_lx()
             
     async def search(self, args=[], limit=None):
         cls = self.__class__
         query = self._get_select_where_sql(args=args)
-        res = await clxuniv.environ._execute(query, clxuniv.envpool)
+        res = await clxuniv.environ._execute(query)
         return ObjValsMapper(cls, res).tbobj_lx()
         
     async def createtb(self):
@@ -233,4 +232,4 @@ class ObjValsMapper:
             self.tbobj_l.append(tbobj)
         
     def tbobj_lx(self):
-        return self.tbobj_l if len(self.tbobj_l) > 1 else self.tbobj_l[0] or False
+        return tuple(self.tbobj_l)

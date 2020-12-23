@@ -18,16 +18,15 @@ async def create_new_tables(tblist=[]):
         tbclass = clxuniv.env.get(tbl)
         if tbclass._migrate:
             query = await tbclass.createtb()
-            print(query)
-            await clxuniv.environ._execute(query, clxuniv.envpool)
+            await clxuniv.environ._execute(query)
             
 async def update_new_columns(tblist=[]):
     for tbls in tblist:
-        cols = await clxuniv.environ.get_all_cols(clxuniv.envpool, tbls[0])
+        cols = await clxuniv.environ.get_all_cols(tbls[0])
         colsl = tools.parse_same_key_list(cols)
         sqlq = clxuniv.env[str(tbls[0]).replace('_', '.')]._migrate_new_cols(existcolist=colsl.values())
         if sqlq:
-            await clxuniv.environ._execute(sqlq, clxuniv.envpool)
+            await clxuniv.environ._execute(sqlq)
             
 
 @clx.listener('before_server_start')
@@ -36,11 +35,15 @@ async def register_db(clx, loop):
     clxuniv['environ'] = Database(dbuser=dbcon.get('dbuser'),userpass=dbcon.get('dbpass'),dbname=dbcon.get('dbname'), dbhost=dbcon.get('dbhost'), dbport=dbcon.get('dbport'), maxquery=4000, maxinclife=5000)
     clxuniv['envpool'] = await clxuniv.environ.register_db
     clxuniv['env'] = clsreg.InstanceEnviron(tbclass_l=moduels)
-    tables = await clxuniv.environ.tables(clxuniv.envpool)
+    tables = await clxuniv.environ.tables()
     tblist = tools.parse_same_key_list(keylist=tables)
     tblist = tblist.values() if tables else []
     await create_new_tables(tblist=tblist)
     await update_new_columns(tblist=tblist)
+    
+# @clx.listener('before_server_stop')
+# async def deregister_db(clx, loop):
+#     await clxuniv.environ.unregister_db()
     
 
 if __name__ == "__main__":
