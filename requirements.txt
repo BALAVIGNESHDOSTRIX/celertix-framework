@@ -15,7 +15,7 @@ backports.zoneinfo==0.2.1
 base58==2.0.1
 bcrypt==3.1.7
 beautifulsoup4==4.9.1
-bleach==3.2.1
+bleach==3.3.0
 blessings==1.7
 blinker==1.4
 boto3==1.15.16
