@@ -195,7 +195,7 @@ six==1.14.0
 sniffio==1.1.0
 sortedcontainers==2.3.0
 soupsieve==2.0.1
-sqlparse==0.4.1
+sqlparse==0.4.2
 streamlit==0.68.1
 systemd-python==234
 tabula-py==2.2.0
