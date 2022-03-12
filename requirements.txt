@@ -129,7 +129,7 @@ pathtools==0.1.2
 pdfminer.six==20201018
 pexpect==4.6.0
 pickleshare==0.7.5
-Pillow==8.0.1
+Pillow==9.0.1
 pluggy==0.13.1
 ply==3.11
 prometheus-client==0.8.0
