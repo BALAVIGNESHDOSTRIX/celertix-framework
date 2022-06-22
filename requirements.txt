@@ -114,7 +114,7 @@ netsuitesdk==1.12.0
 notebook==6.1.4
 notifiers==1.2.1
 ntlm-auth==1.5.0
-numpy==1.18.5
+numpy==1.22.0
 oauthlib==3.1.0
 olefile==0.46
 openpyxl==3.0.5
