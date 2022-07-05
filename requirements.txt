@@ -212,7 +212,7 @@ tzlocal==2.1
 ubuntu-advantage-tools==20.3
 ubuntu-drivers-common==0.0.0
 ufw==0.36
-ujson==3.1.0
+ujson==5.4.0
 unattended-upgrades==0.1
 urllib3==1.25.8
 usb-creator==0.3.7
