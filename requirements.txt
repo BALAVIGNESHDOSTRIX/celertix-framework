@@ -184,7 +184,7 @@ robotframework-seleniumtestability==1.1.0
 rpaframework==6.7.1
 rpaframework-core==3.0.0
 s3transfer==0.3.3
-sanic==20.6.3
+sanic==20.12.7
 Sanic-Auth==0.2.0
 SecretStorage==2.3.1
 selenium==3.141.0
