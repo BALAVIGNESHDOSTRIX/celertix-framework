@@ -27,7 +27,7 @@ Brlapi==0.7.0
 bs4==0.0.1
 cached-property==1.5.2
 cachetools==4.1.1
-certifi==2019.11.28
+certifi==2022.12.7
 cffi==1.14.3
 chardet==3.0.4
 Click==7.0
